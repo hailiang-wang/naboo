@@ -1,0 +1,6 @@
+*.swp
+*.swo
+*.sublime-*
+node_modules
+!server/public/upload/README
+server/public/upload/
