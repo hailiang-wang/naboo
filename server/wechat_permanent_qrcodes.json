@@ -1,0 +1,16 @@
+{
+    "xxx==": {
+        "metadata": {
+            "action_name": "QR_LIMIT_STR_SCENE",
+            "action_info": {
+                "scene": {
+                    "scene_str": "xx",
+                    "scene_id": 1
+                }
+            }
+        },
+        "channel_key": "xx",
+        "channel_stakeholder": "xx",
+        "channel_stakeholder_phone": "xx"
+    }
+}

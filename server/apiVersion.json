@@ -1,0 +1,8 @@
+{
+	"versionPrefix": "vnd.arrking.",
+    "supportedVersions": [
+       {
+    	   "version": "v1.0"
+       }
+     ]
+}

@@ -2,5 +2,7 @@
 *.swo
 *.sublime-*
 node_modules
+server/config.js
+server/logs/*.log*
 !server/public/upload/README
 server/public/upload/

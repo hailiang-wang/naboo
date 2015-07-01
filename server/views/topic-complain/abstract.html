@@ -1,0 +1,43 @@
+<div class='cell'>
+
+  <a class="user_avatar pull-left" href="/user/<%= topic.author.loginname %>">
+    <%= topic.author.name %>
+  </a>
+
+  <span class="reply_count pull-left">
+    <span class="count_of_replies" title="回复数">
+      <%= topic.reply_count %>
+    </span>
+    <span class="count_seperator">/</span>
+    <span class="count_of_visits" title='点击数'>
+      <%= topic.visit_count %>
+    </span>
+  </span>
+<!--
+  <% if (topic.reply && topic.reply.author) {%>
+  <a class='last_time pull-right' href="/topic/<%= topic._id %><%- '#' + topic.reply._id %>">
+    <img class="user_small_avatar" src="<%= topic.reply.author.avatar %>">
+    <span class="last_active_time"><%= topic.reply.friendly_create_at %></span>
+  </a>
+  <% } %>
+  <% if (!topic.reply) {%>
+    <span class='last_time pull-right'>
+      <span class="last_active_time"><%= topic.friendly_create_at %></span>
+    </span>
+  <% } %>
+ -->
+  <span class='last_time pull-right'>
+    <span class="last_active_time"><%= topic.complainTime %></span>
+  </span>
+
+  <div class="topic_title_wrapper">
+
+    <%- partial('./_top_good', {topic: topic}) %>
+
+    <a class='topic_title' href='/topic/<%= topic._id %>' title='<%= topic.title %>' target="_blank">
+      举报理由：<%= topic.complainDesc %>
+      |
+      被举报主题标题：<%= topic.title %>
+    </a>
+  </div>
+</div>

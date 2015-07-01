@@ -1,0 +1,49 @@
+<div class='cell'>
+
+  <div class="topic_title_wrapper">
+
+    <a class='topic_title' href='/topic/<%= topic._id %>' title='<%= topic.title %>'>
+      <%= topic.title %>
+    </a>
+
+    <%- partial('./_top_good', {topic: topic}) %>
+  </div>
+
+  <span class="reply_count pull-left">
+    <span class="count_of_replies" title="回复数">
+      <%= topic.reply_count %>
+    </span>
+    <span class="count_seperator">/</span>
+    <span class="count_of_visits" title='点击数'>
+      <%= topic.visit_count %>
+    </span>
+  </span>
+
+  <% if (topic.reply && topic.reply.author) {%>
+  <a class='last_time pull-right' href="/topic/<%= topic._id %><%- '#' + topic.reply._id %>">
+    <img class="user_small_avatar" src="<%= topic.reply.author.avatar %>">
+    <span class="last_active_time"><%= topic.reply.friendly_create_at %></span>
+  </a>
+  <% } %>
+  <% if (!topic.reply) {%>
+    <span class='last_time pull-right'>
+      <span class="last_active_time"><%= topic.friendly_create_at %></span>
+    </span>
+  <% } %>
+
+  <a class="user_avatar pull-left" href="/user/<%= topic.author.loginname %>">
+    <img src="<%= topic.author.avatar %>"
+         title="<%= topic.author.loginname %>"
+            />
+    <%= topic.author.name %>
+
+    <% if (typeof(current_user) !== 'undefined') { %>
+      <%= topic.author.phone_number %>
+    <% } %>
+  </a>
+
+        <!-- add location -->
+    <% if (topic.goods_exchange_location && topic.goods_exchange_location.user_edit_address) { %>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= topic.goods_exchange_location.user_edit_address %>
+    <% } %>
+</div>

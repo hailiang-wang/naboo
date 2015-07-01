@@ -1,0 +1,75 @@
+{
+  "name": "passport-wechat",
+  "version": "0.1.3",
+  "main": "lib/index.js",
+  "description": "passport wechat",
+  "homepage": "http://www.liangyali.com",
+  "bugs": {
+    "url": "https://github.com/liangyali/passport-wechat/issues"
+  },
+  "author": {
+    "name": "liangyali",
+    "email": "me@liangyali.com",
+    "url": "http://www.liangyali.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liangyali/passport-wechat"
+  },
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "passport",
+    "wechat"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-test": "^0.11.0",
+    "istanbul": "^0.3.0",
+    "jshint-stylish": "^0.2.0",
+    "load-grunt-tasks": "^0.4.0",
+    "mocha": "^1.21.0",
+    "should": "^4.0.4",
+    "time-grunt": "^0.3.1"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "dependencies": {
+    "debug": "latest",
+    "express": "^4.8.1",
+    "express-session": "^1.7.4",
+    "passport": "^0.2.0",
+    "passport-strategy": "^1.0.0",
+    "wechat": "latest",
+    "wechat-oauth": "^1.0.1"
+  },
+  "gitHead": "9f4efac364aa9a164e7ae1cd144fb920cdff4fd3",
+  "_id": "passport-wechat@0.1.3",
+  "_shasum": "839b5c4056c0e67d8d596f41ef96a9095bd7bb79",
+  "_from": "passport-wechat@*",
+  "_npmVersion": "2.7.0",
+  "_nodeVersion": "1.5.0",
+  "_npmUser": {
+    "name": "liangyali",
+    "email": "me@liangyali.com"
+  },
+  "maintainers": [
+    {
+      "name": "liangyali",
+      "email": "me@liangyali.com"
+    }
+  ],
+  "dist": {
+    "shasum": "839b5c4056c0e67d8d596f41ef96a9095bd7bb79",
+    "tarball": "http://registry.npmjs.org/passport-wechat/-/passport-wechat-0.1.3.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/passport-wechat/-/passport-wechat-0.1.3.tgz",
+  "readme": "ERROR: No README data found!"
+}
