@@ -1,0 +1,35 @@
+<ion-view hide-nav-bar="true">
+  <ion-side-menus>
+    <!-- for a map, user may drag anywhere, so the menu should not slide out.-->
+    <!-- http://ionicframework.com/docs/api/directive/ionSideMenuContent/ -->
+    <ion-side-menu-content drag-content="false">
+      <div class="bar bar-header bar-royal">
+        <div class="buttons">
+          <button class="button button-icon ion-navicon" menu-toggle="left"> {{menuTitle}}</button>
+        </div>
+        <h1 class="location title" ng-click="showFullAddress()">{{address}}</h1>
+        <i class="title-expand icon ion-chevron-down icon-accessory"></i>
+        <input class="searchbox" ng-class="showSearch?'expanded':''" ng-model="query" type="text" placeholder="">
+        <a ng-show="showSearch" class="button button-icon icon ion-ios-close-empty pull-right" style="right:50px;color:#888;" ng-click="query=''"></a>
+        <a class="button button-icon icon ion-ios-search pull-right" ng-click="doSearch(query)"></a>
+      </div>
+      <ion-nav-view name="menuContent">
+        <ion-content>
+          <div qq-map topics="topics" state="state"></div>
+        </ion-content>
+      </ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">分类</h1>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item topic-name-menu stable-bg {{currentTab==item.value?'activated':''}}" menu-close ng-click="changeSelected(item)" ng-repeat="item in sideMenus" href="#/tab/maps/{{item.value}}">
+            {{item.label}}
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
+</ion-view>

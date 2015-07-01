@@ -1,0 +1,66 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\000033}}
+.wf-post-form * {
+  color: #666;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000312}}
+.wf-post-form .tag-list {
+  white-space: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000314}}
+.wf-post-form .tag-list li {
+  display: inline-block;
+  text-align: center;
+  margin: 4px 0px;
+  line-height: 16px;
+  font-size: 14px;
+  display: inline-block;
+  border-right: 1px solid #56c1b5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000322}}
+.wf-post-form .tag-list li a {
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding: 2px 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000329}}
+.wf-post-form .tag-list li.active {
+  background: #56c1b5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000331}}
+.wf-post-form .tag-list li.active a {
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000336}}
+.wf-post-form .tag-list li:last-child {
+  border-right: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000341}}
+.wf-post-form .quality-list li {
+  width: 20%;
+  display: inline-block;
+  text-align: center;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000345}}
+.wf-post-form .quality-list li a {
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  line-height: 48px;
+  background: #ddd;
+  box-sizing: border-box;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000357}}
+.wf-post-form .quality-list li.active a {
+  background: #56c1b5;
+  color: #fff;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/post\.scss}line{font-family:\0000364}}
+.row .item-input {
+  padding: 1px 0 0px 8px;
+}

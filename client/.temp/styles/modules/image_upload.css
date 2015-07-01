@@ -1,0 +1,48 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\000031}}
+.wf-img-upload {
+  margin: 0 auto;
+  padding: 8px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\000035}}
+.wf-img-upload .box {
+  box-sizing: content-box;
+  border: 1px solid #aaa;
+  background: #ddd;
+  margin: 4px 2px;
+  padding: 0;
+  height: 160px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000327}}
+.wf-img-upload .box .goods-img-holder {
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000330}}
+.wf-img-upload .box.upload {
+  background: #fff;
+  text-align: center;
+  color: #aaa;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000334}}
+.wf-img-upload .box.upload i {
+  font-size: 26px;
+  line-height: 78px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000339}}
+.wf-img-upload .box img {
+  -webkit-flex: 1;
+          flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000344}}
+.wf-img-upload .box span {
+  position: absolute;
+  font-size: 20px;
+  color: #ef473a;
+  top: 10px;
+  right: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/hain\/arrking\/mbaas\/wildfire\/client\/app\/styles\/modules\/image_upload\.scss}line{font-family:\0000352}}
+.wf-img-upload .group .box {
+  height: 78px;
+}

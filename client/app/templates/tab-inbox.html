@@ -1,0 +1,33 @@
+<ion-view>
+  <ion-nav-title>
+    消息中心
+  </ion-nav-title>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="message in messages.hasnot_read_messages" type="item-text-wrap" href="#/item/{{message.topic.id}}">
+        <img ng-src="{{message.author.avatar}}">
+        <h2>{{message.author.name}}</h2>
+        <p>{{message.reply.content}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+<!--
+        <ion-option-button class="button-assertive" ng-click="remove(message)">
+          Delete
+        </ion-option-button> -->
+      </ion-item>
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="message in messages.has_read_messages" type="item-text-wrap" href="#/item/{{message.topic.id}}">
+        <img ng-src="{{message.author.avatar}}">
+        <h2>{{message.author.name}}</h2>
+        <p>{{message.reply.content}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+      <!--   <ion-option-button class="button-assertive" ng-click="remove(message)">
+          Delete
+        </ion-option-button> -->
+      </ion-item>
+      <div class="text-center padding" ng-if="doNotHaveMessage">
+        <p>哇，暂时没有新消息</p>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

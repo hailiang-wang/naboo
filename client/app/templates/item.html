@@ -1,0 +1,185 @@
+<ion-view>
+  <ion-nav-title>
+    {{topic.title||'naboo'}}
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <a class="button button-icon icon ion-ios-arrow-back" href="#tab/index"></a>
+  </ion-nav-buttons>
+  <ion-content class="has-header has-footer" ng-class="(status.action!='normal')?'has-reply':''">
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <ion-slide-box style="height: 200px;" does-continue="true" auto-play="true" slide-interval="4000">
+        <ion-slide ng-repeat="pic in topic.goods_pics">
+          <div style="width:100%; height:100%; background:url('{{img_prefix}}{{pic}}') center no-repeat; background-size:cover" ng-click="showSlidePreview(pic)"></div>
+        </ion-slide>
+    </ion-slide-box>
+    <span class="{{topic.goods_quality_degree | badge}}">{{topic.goods_quality_degree}}</span>
+
+    <div class="row">
+      <div class="price col col50">
+        <h3>
+        <span class="assertive">￥ {{topic.goods_now_price}}</span>
+        &nbsp;
+        <del ng-if="topic.goods_pre_price">￥ {{topic.goods_pre_price}}</del>
+        </h3>
+        <button class="button button-assertive button-small">{{topic.goods_is_bargain?'接受侃价':'谢绝侃价'}}</button>
+        &nbsp;
+        <button class="button button-clear button-small ion-alert-circled" ng-click="complainTopic(topic)"> 举报</button>
+        <br />
+        <a ng-if="isCollected" class="button button-clear button-assertive" ng-click="collectTopic()">
+          <i class=" icon ion-ios-heart"> </i> {{topic.collect_count + 0}} 已收藏
+        </a>
+        <a ng-if="!isCollected" class="button button-clear button-assertive" ng-click="collectTopic()">
+          <i class=" icon ion-ios-heart-outline"> </i> {{topic.collect_count + 0}}
+        </a>
+        &nbsp;<span class="visit-count">浏览 {{topic.visit_count + 1}}</span>
+      </div>
+      <div class="col col50 text-right">
+        <div class="name-avatar item-content">
+          <img ng-src='{{topic.author.avatar}}' />
+          <span>{{topic.author.name}}</span>
+        </div>
+        <div class="item-content"><i class="icon ion-ios-location mr5"></i>{{topic.goods_exchange_location.user_edit_address}}</div>
+        <div class="item-note">
+          {{topic.goods_exchange_location | flatternDistance:currentLocation}}<br />
+          <span am-time-ago="topic.update_at"></span>
+        </div>
+      </div>
+    </div>
+    <div class="dot-line padding">
+      <h5>宝贝详情</h4>
+      <div class="topic-content" ng-bind-html="topic.content | link"></div>
+    </div>
+
+    <div class="button-bar">
+      <a ng-click="status.showBargains = true" ng-class="status.showBargains?'active':''" class="button button-outline button-small">出价（{{bargains.length + 0}}）</a>
+      <a ng-click="status.showBargains = false" ng-class="status.showBargains?'':'active'" class="button button-outline button-small"> 留言（{{replies.length + 0}}）</a>
+    </div>
+
+    <ion-list class="bargains" ng-show="status.showBargains">
+      <ion-item class="item-loading" ng-if="bargains == undefined">
+        <span ng-if="!loadError">
+          加载中...
+        </span>
+        <span ng-if="loadError">
+          加载失败
+        </span>
+      </ion-item>
+      <ion-item ng-if="bargains.length == 0">
+        暂无出价
+      </ion-item>
+      <ion-item ng-class="reply.author.loginname == topic.author.loginname?'item-avatar-right':'item-avatar'" ng-repeat="reply in bargains" ng-click="bargainTo(reply.author)">
+        <img ng-src="{{reply.author.avatar}}">
+        <p>
+          <span ng-class="{'bold': reply.author.loginname == topic.author.loginname}">
+            {{reply.author.name}}
+          </span>
+          <span class="assertive" ng-if="!reply.reply_to">
+            出价 ￥ {{reply.price}}
+          </span>
+          <span class="assertive" ng-if="reply.reply_to">
+            回复 {{ reply.reply_to}}
+          </span>
+          <span class="item-note" am-time-ago="reply.create_at">
+          </span>
+        </p>
+        <div class="item-text-wrap" ng-bind-html="reply.content | link"></div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="replies" ng-show="!status.showBargains">
+      <ion-item class="item-loading" ng-if="replies == undefined">
+        <span ng-if="!loadError">
+          加载中...
+        </span>
+        <span ng-if="loadError">
+          加载失败
+        </span>
+      </ion-item>
+      <ion-item ng-if="replies.length == 0">
+        暂无评论
+      </ion-item>
+      <ion-item ng-class="reply.author.loginname == topic.author.loginname?'item-avatar-right':'item-avatar'" ng-repeat="reply in replies" ng-click="replyTo(reply.author)">
+        <img ng-src="{{reply.author.avatar}}">
+        <p>
+          <span ng-class="{'bold': reply.author.loginname == topic.author.loginname}">
+            {{reply.author.name}}
+          </span>
+          <span class="assertive" ng-if="reply.reply_to">
+            回复 {{ (reply.reply_to == topic.author.name)? '卖家':reply.reply_to}}
+          </span>
+          <span class="item-note" am-time-ago="reply.create_at">
+          </span>
+        </p>
+        <div class="item-text-wrap" ng-bind-html="reply.content | link"></div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <div class="bar bar-footer" ng-show="status.action=='normal'">
+    <div class="tabs tabs-color-royal">
+      <a ng-show="!isSeller" class="tab-item" ng-click="bargainTo()">
+        我要出价
+      </a>
+      <div ng-show="!isSeller" class="tab-item">
+        <i ng-click="showContact=!showContact" class="icon frog-icon frog2"></i>
+        <a class="tab-item" href="tel:{{topic.author.phone_number | addPlatFormPostFix}}"><i ng-show="showContact" class="icon ion-ios-telephone phone-icon"></i></a>
+        <a class="tab-item" href="sms:{{topic.author.phone_number | addPlatFormPostFix}}"><i ng-show="showContact" class="icon ion-ios-chatbubble message-icon"></i></a>
+      </div>
+      <a class="tab-item" ng-click="replyTo(topic.author)">
+        我要留言
+      </a>
+    </div>
+  </div>
+  <div class="bar bar-footer" ng-show="status.action=='bid'" style="background:#ddd;height: 150px;display:block;" keyboard-attach>
+      <div class="row" style="display:block;">
+        <button class="button button-small button-clear button-dark float-left" ng-click="status.action='normal'">
+          取消
+        </button>
+        <button class="button button-small button-clear button-royal float-right" ng-click="saveReply()">
+          发送
+        </button>
+      </div>
+      <div ng-show="isSeller" class="row" style="padding:10px;">
+        <label class="col col-25">
+          回复
+        </label>
+        <span class="col col-75">{{ (replyData.replyTo.name == topic.author.name)? '卖家':replyData.replyTo.name}}</span>
+      </div>
+      <div ng-show="!isSeller" class="row" style="padding:10px;">
+        <label class="col col-25">
+          出价&nbsp;&nbsp;&nbsp;￥
+        </label>
+        <input class="col col-25" style="padding:2px 6px;" type="text" placeholder="" ng-model="replyData.price">
+      </div>
+      <div class="row" style="padding:10px;">
+        <label class="col col-25">
+          说点什么
+        </label>
+        <input class="col col-75" style="padding:2px 6px;" type="text" placeholder="" ng-model="replyData.content"></input>
+      </div>
+  </div>
+  <div class="bar bar-footer" ng-show="status.action=='reply'" style="background:#ddd;height: 150px;display:block;" keyboard-attach>
+      <div class="row" style="display:block;">
+        <button class="button button-small button-clear button-dark float-left" ng-click="status.action='normal'">
+          取消
+        </button>
+        <button class="button button-small button-clear button-royal float-right" ng-click="saveReply()">
+          发送
+        </button>
+      </div>
+      <div class="row" style="padding:10px;">
+        <label class="col col-25">
+          回复
+        </label>
+        <span class="col col-75">{{ (replyData.replyTo.name == topic.author.name)? '卖家':replyData.replyTo.name}}</span>
+      </div>
+      <div class="row" style="padding:10px;">
+        <label class="col col-25">
+          说点什么
+        </label>
+        <input class="col col-75" style="padding:2px 6px;" type="text" placeholder="" ng-model="replyData.content"></input>
+      </div>
+  </div>
+</ion-view>

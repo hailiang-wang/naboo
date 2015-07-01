@@ -1,0 +1,80 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar class="bar-royal">
+    <h1 class="title">我的naboo</h1>
+    <div class="buttons">
+      <a class="button button-clear button-icon ion-ios-gear-outline" ui-sref="settings"></a>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header" scroll="false">
+    <div id="account">
+      <div id="profile-info">
+        <img id="profile-image" ng-src='{{data.avatar}}'>
+        <h3 id="profile-name">{{data.name}}</h3>
+        <!-- <h3 id="profile-phone"><i class="icon ion-iphone"></i> &nbsp;{{data.phone}}</h3> -->
+      </div>
+      <!-- example https://gist.github.com/Samurais/3cb9498588575f342f1e# -->
+      <ion-tabs class="tabs-striped tabs-color-royal">
+        <!--  title="在售" -->
+        <ion-tab title="在售" badge="data.onGoingStuffsBadge||''+0" badge-style="badge-light" on-select="onTabSelected('onGoingStuffs')">
+          <!-- Tab 1 content -->
+        </ion-tab>
+        <!--  title="下架" -->
+        <ion-tab title="下架" badge="data.offShelfStuffsBadge||''+0" badge-style="badge-light" on-select="onTabSelected('offShelfStuffs')">
+          <!-- Tab 2 content -->
+        </ion-tab>
+        <!--  title="收藏" -->
+        <ion-tab title="收藏" badge="data.favoritesStuffsBadge||''+0" badge-style="badge-light" on-select="onTabSelected('favoritesStuffs')">
+          <!-- Tab 3 content -->
+        </ion-tab>
+      </ion-tabs>
+    </div>
+    <!-- <div padding="true" style="padding-top:300px;z-index:300">
+Orders fake tab
+</div> -->
+    <ion-pane id="my-stuff-list-container">
+      <ion-scroll id="my-stuff-list-scroll" zooming="false" direction="y">
+        <ion-list>
+          <div class="card" ng-if="stuffs.length === 0">
+            <div class="item item-text-wrap">
+              亲，还没有记录呢
+            </div>
+          </div>
+          <ion-item on-swipe-left="swiped=true" on-swipe-right="swiped=false" ng-repeat="item in stuffs" class="item item-thumbnail-left item-icon-right" href="#/item/{{item._id}}">
+            <img ng-src="{{item.goods_pics[0]}}" />
+            <i ng-class="swiped?'ion-chevron-left':'ion-chevron-right'" class="icon icon-accessory"></i>
+            <h2>{{item.title}}</h2>
+            <p>¥ {{item.goods_now_price}}</p>
+            <span><i class="ion-ios-chatbubble-outline" style="color:red">{{item.reply_count}}</i>
+                        <i class="ion-ios-heart-outline assertive">{{item.collect_count}}</i></span>
+            <br/>
+            <!--i class="icon ion-chevron-right icon-accessory"></i-->
+            <!-- need a filter to process create_at  -->
+            <span>{{item.create_at | relativets}} </span>
+            <span ng-if="!isFavoriteTab">
+                            <ion-option-button class="button-energized" ng-click="editSoldOut(item)" ng-if="item.goods_status === '在售'">
+                                售出
+                            </ion-option-button>
+                            <ion-option-button class="button-assertive" ng-click="editDelete(item)" ng-if="item.goods_status === '下架'">
+                                删除
+                            </ion-option-button>
+                            <ion-option-button class="button-assertive" ng-click="editOffShelf(item)" ng-if="item.goods_status === '在售'">
+                                下架
+                            </ion-option-button>
+                            <ion-option-button class="button-royal" ng-click="editOnShelf(item)" ng-if="item.goods_status === '下架'">
+                                上架
+                            </ion-option-button>
+                            <ion-option-button class="button-calm" ng-click="editDingOnShelf(item)" ng-if="item.goods_status === '在售'">
+                                顶
+                            </ion-option-button>
+                        </span>
+            <span ng-if="isFavoriteTab">
+                            <ion-option-button class="button-assertive" ng-click="editUnCollected(item)">
+                                取消收藏
+                            </ion-option-button>
+                        </span>
+          </ion-item>
+        </ion-list>
+      </ion-scroll>
+    </ion-pane>
+  </ion-content>
+</ion-view>
