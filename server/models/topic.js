@@ -60,25 +60,25 @@ var TopicSchema = new Schema({
   /**
    * goods pictures
    */
-  act_pics: {type: Schema.Types.Mixed, required: true},
+  act_pics: {type: Schema.Types.Mixed, required: false},
   /**
    * 活动地点
    * @type {Object}
    */
-  act_location: {type: Schema.Types.Mixed, required: true},
-  act_location_geom: {type: Schema.Types.Mixed, required: true},
+  act_location: {type: Schema.Types.Mixed, required: false},
+  act_location_geom: {type: Schema.Types.Mixed, required: false},
   /**
    * 活动状态
    * @type [未开始，进行中，已结束，取消]
    */
-  act_status: {type: String, required: true}
+  act_status: {type: String, default: '未开始',  required: true}
 });
 
 TopicSchema.index({create_at: -1});
 TopicSchema.index({top: -1, last_reply_at: -1});
 TopicSchema.index({last_reply_at: -1});
 TopicSchema.index({author_id: 1, create_at: -1});
-TopicSchema.index({goods_exchange_geom: '2dsphere'});
+TopicSchema.index({act_location_geom: '2dsphere'});
 
 TopicSchema.virtual('tabName').get(function () {
   var tab = this.tab;
