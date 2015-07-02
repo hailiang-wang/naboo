@@ -15,7 +15,7 @@ var config = {
 
     name: 'BJ NodeJS Club', // 社区名字
     description: '', // 社区的描述
-    keywords: 'nodejs, node, activities',
+    keywords: 'nodejs, beijing, activities',
 
     // 添加到 html head 中的信息
     site_headers: [
@@ -33,7 +33,7 @@ var config = {
     // 社区的域名
     host: 'localhost',
     // ionic 服务地址
-    client_host: 'localhost:8100',
+    client_host: 'localhost:8200',
     // 默认的Google tracker ID，自有站点请修改，申请地址：http://www.google.com/analytics/
     google_tracker_id: '',
     // 默认的cnzz tracker ID，自有站点请修改
@@ -56,7 +56,7 @@ var config = {
     auth_cookie_name: 'naboo_sid',
 
     // 程序运行的端口
-    port: 3000,
+    port: 3030,
 
     // 话题列表显示的话题数量
     list_topic_count: 20,
@@ -146,7 +146,8 @@ var config = {
         api: {
             notify_template_id: "xxxxx"
         },
-        debug: true
+        debug: true,
+        developer_token: ""
     },
 
     /**

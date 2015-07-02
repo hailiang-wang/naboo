@@ -147,7 +147,7 @@ function onDefault(msg, res) {
 }
 
 exports.setup = function(app, path) {
-    app.use(path, wechat('wiUtud2nsdAk3', function(req, res, next) {
+    app.use(path, wechat(wxCfg.developer_token, function(req, res, next) {
         // message is located in req.weixin
         var message = req.weixin;
         // _postWXEvent(message);
