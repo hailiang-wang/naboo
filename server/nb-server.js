@@ -81,7 +81,7 @@ revision.short(function(gitRevision) {
      * <%- layout( 'layout.html') %>
      * http://yijiebuyi.com/blog/08cf14e904325c19814465689453b3aa.html
      */
-    // app.locals._layoutFile = 'layout.html';
+    app.locals._layoutFile = 'layout.html';
     app.enable('trust proxy');
 
 
