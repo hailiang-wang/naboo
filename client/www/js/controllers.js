@@ -1,6 +1,21 @@
 angular.module('naboc.controllers', [])
 
-.controller('ActivityCtrl', function($scope) {})
+.controller('ActivityCtrl', function($scope, $timeout, Msg, webq) {
+
+    $scope.data = null;
+
+    webq.getAllTopics()
+        .then(function(result) {
+            $scope.data = result.data;
+        }, function(err) {
+            console.log(err);
+            Msg.show('服务器发呆了。');
+            $timeout(function() {
+                Msg.hide();
+            }, 2000);
+        });
+
+})
 
 .controller('PeopleCtrl', function($scope, Chats) {
     // With the new view caching in Ionic, Controllers are only called

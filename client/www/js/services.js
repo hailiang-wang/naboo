@@ -96,231 +96,6 @@ angular.module('naboc.services', [])
     };
 })
 
-
-/**
- * Manage Topics
- * Creating a CRUD App in Minutes with Angular’s $resource
- * http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
- * @param  {[type]} cfg         [description]
- * @param  {[type]} $resource   [description]
- * @param  {Object} $log)       {                   var User [description]
- * @param  {[type]} function(r) {                                               $log.debug('get topics tab:', tab, 'page:', page, 'data:', r.data);                return callback && callback(r [description]
- * @return {[type]}             [description]
- */
-.factory('Topics', function(cfg, $resource, $log, $rootScope) {
-    var User = {}; //do it later
-    var topics = [];
-    var currentTab = 'all';
-    var nextPage = 1;
-    var hasNextPage = true;
-    var text = null;
-    var lng = null;
-    var lat = null;
-    var resource = $resource(cfg.api + '/topics', {}, {
-        query: {
-            method: 'get',
-            params: {
-                tab: 'all',
-                page: 1,
-                limit: 10,
-                mdrender: true
-            },
-            timeout: 20000
-        }
-    });
-    var getTopics = function(tab, page, text, callback) {
-        return resource.query({
-            tab: tab,
-            page: page,
-            text: text,
-            lng: lng,
-            lat: lat
-        }, function(r) {
-            $log.debug('get topics tab:', tab, 'page:', page, 'data:', r.data);
-            return callback && callback(r);
-        });
-    };
-    return {
-        refresh: function() {
-            return getTopics(currentTab, 1, text, function(response) {
-                nextPage = 2;
-                hasNextPage = true;
-                topics = response.data;
-            });
-        },
-        pagination: function() {
-            return getTopics(currentTab, nextPage, text, function(response) {
-                if (response.data.length < 10) {
-                    $log.debug('response data length', response.data.length);
-                    hasNextPage = false;
-                }
-                nextPage++;
-                topics = topics.concat(response.data);
-            });
-        },
-        currentTab: function(newTab) {
-            if (typeof newTab !== 'undefined') {
-                currentTab = newTab;
-            }
-            return currentTab;
-        },
-        hasNextPage: function(has) {
-            if (typeof has !== 'undefined') {
-                hasNextPage = has;
-            }
-            return hasNextPage;
-        },
-        resetData: function() {
-            topics = [];
-            text = {};
-            nextPage = 1;
-            hasNextPage = true;
-        },
-        getTopics: function() {
-            return topics;
-        },
-        setQuery: function(query) {
-            text = query;
-        },
-        setGeom: function(geom) {
-            $log.debug('setGeom', JSON.stringify(geom));
-            lng = geom.lng;
-            lat = geom.lat;
-        },
-        getById: function(id) {
-
-            if (!!topics) {
-                for (var i = 0; i < topics.length; i++) {
-                    if (topics[i].id === id) {
-                        return topics[i];
-                    }
-                }
-            } else {
-                return null;
-            }
-        },
-        saveNewTopic: function(newTopicData) {
-            var currentUser = User.getCurrentUser();
-            return resource.save({
-                accesstoken: currentUser.accesstoken
-            }, newTopicData);
-        }
-    };
-})
-
-
-.factory('Topic', function(cfg, $resource, $log, $q, store) {
-    //var User = {};
-    // make sure the user is logged in
-    // before using saveReply.
-
-    /**
-     * Get current user from local store or resolve from server.
-     * But if there is no accessToken in store.getAccessToken(),
-     * it means there is none logged in user in current session.
-     *
-     * @type {Object}
-     */
-    var Settings = {};
-    var topic;
-    var resource = $resource(cfg.api + '/topic/:id?accesstoken=' + store.getAccessToken(), {
-        id: '@id'
-    }, {
-        complain: {
-            method: 'post',
-            url: cfg.api + '/topic/complain'
-        },
-        collect: {
-            method: 'post',
-            url: cfg.api + '/topic/collect'
-        },
-        deCollect: {
-            method: 'post',
-            url: cfg.api + '/topic/de_collect'
-        },
-        reply: {
-            method: 'post',
-            url: cfg.api + '/topic/:topicId/replies',
-            timeout: 2000
-        },
-        upReply: {
-            method: 'post',
-            url: cfg.api + '/reply/:replyId/ups'
-        }
-    });
-    return {
-        getById: function(id) {
-            if (topic !== undefined && topic.id === id) {
-                var topicDefer = $q.defer();
-                topicDefer.resolve({
-                    data: topic
-                });
-                return {
-                    $promise: topicDefer.promise
-                };
-            }
-            return this.get(id);
-        },
-        get: function(id) {
-            return resource.get({
-                id: id
-            }, function(response) {
-                topic = response.data;
-            });
-        },
-        saveReply: function(topicId, replyData) {
-            var reply = angular.extend({}, replyData);
-            return resource.reply({
-                topicId: topicId,
-                accesstoken: store.getAccessToken()
-                    //accesstoken: '5447b4c3-0006-4a3c-9903-ac5a803bc17e'
-            }, reply);
-        },
-        upReply: function(replyId) {
-            var currentUser = User.getCurrentUser();
-            return resource.upReply({
-                replyId: replyId,
-                accesstoken: store.getAccessToken()
-            }, null, function(response) {
-                if (response.success) {
-                    angular.forEach(topic.replies, function(reply, key) {
-                        if (reply.id === replyId) {
-                            if (response.action === 'up') {
-                                reply.ups.push(currentUser.id);
-                            } else {
-                                reply.ups.pop();
-                            }
-                        }
-                    });
-                } else {
-                    $log(response);
-                }
-            });
-        },
-        complainTopic: function(topicId, description) {
-            return resource.complain({
-                topicId: topicId,
-                description: description,
-                accesstoken: store.getAccessToken()
-            });
-        },
-        collectTopic: function(topicId) {
-            console.log(topicId, store.getAccessToken());
-            return resource.collect({
-                topic_id: topicId,
-                accesstoken: store.getAccessToken()
-            });
-        },
-        deCollectTopic: function(topicId) {
-            return resource.deCollect({
-                topic_id: topicId,
-                accesstoken: store.getAccessToken()
-            });
-        }
-    };
-})
-
-
 /**
  * HTML5 Local Storage
  * http://www.w3schools.com/html/html5_webstorage.asp
@@ -440,6 +215,29 @@ Local storage is per domain. All pages, from one domain, can store and access th
 .service('webq', function($http, $q, $log, cfg, store, Msg, $timeout) {
 
     var self = this;
+
+    /**
+     * get all topics
+     * @return {[type]} [description]
+     */
+    this.getAllTopics = function() {
+        var deferred = $q.defer();
+        $http.get('{0}/topics'.f(cfg.api), {
+                accesstoken: store.getAccessToken()
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .success(function(data) {
+                deferred.resolve(data);
+            })
+            .error(function(err) {
+                deferred.reject(err);
+            })
+        return deferred.promise;
+    }
 
     /**
      * upload wechat images

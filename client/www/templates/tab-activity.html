@@ -1,28 +1,26 @@
 <ion-view hide-nav-bar="true">
     <ion-content>
-        <div class="list card">
-            <div class="item item-divider">Recent Updates</div>
-            <div class="item item-body">
-                <div>
-                    There is a fire in <b>sector 3</b>
-                </div>
+        <div class="card" ng-show="data == null">
+            <div class="item item-text-wrap">
+                加载中...
             </div>
         </div>
-        <div class="list card">
-            <div class="item item-divider">Health</div>
-            <div class="item item-body">
-                <div>
-                    You ate an apple today!
-                </div>
+        <div class="list" ng-show="data !== null" collection-repeat="x in data">
+            <div class="item item-divider">
+                {{x.title}}
             </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Upcoming</div>
-            <div class="item item-body">
-                <div>
-                    You have <b>29</b> meetings on your calendar tomorrow.
-                </div>
+            <div class="item">
+                报名人数：{{x.collect_count}}
             </div>
+            <div class="item item-text-wrap">
+                {{x.content}}
+            </div>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-ios-plus-outline"></i> 我要报名
+            </a>
+            <a class="item item-icon-left" href="#">
+                <i class="icon ion-ios-minus-outline"></i> 取消报名
+            </a>
         </div>
     </ion-content>
 </ion-view>
