@@ -244,11 +244,6 @@ revision.short(function(gitRevision) {
         }
     });
 
-    // app.get('/auth/wechat/embedded/callback', passport.authenticate('wechat', {
-    //     failureRedirect: '/auth/wechat/embedded/err',
-    //     successRedirect: '/auth/wechat/embedded/success'
-    // }));
-
     app.get('/auth/wechat/embedded/callback', function(req, res, next) {
         logger.debug('/auth/wechat/embedded/callback query', JSON.stringify(req.query));
         passport.authenticate('wechat', function(err, user, info) {
@@ -266,7 +261,8 @@ revision.short(function(gitRevision) {
             if (req.query && req.query.state !== '') {
                 HashStateProxy.getHashStateByMD5(req.query.state)
                     .then(function(doc) {
-                        if (doc.value === 'post' && !user.phone_number) {
+                        // all users are phone-number required.
+                        if (!user.phone_number) {
                             res.redirect(util.format('http://%s/#/bind-mobile-phone/%s/%s', config.client_host, user.accessToken, req.query.state));
                         } else {
                             // pass user accesstoken into client
