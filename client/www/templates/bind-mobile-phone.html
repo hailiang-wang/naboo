@@ -1,0 +1,56 @@
+<ion-view>
+  <ion-nav-title>
+    加入BJ NodeJS Club
+  </ion-nav-title>
+  <ion-content>
+    <div class="list padding">
+      <h3 class="padding text-center">欢迎加入BJ NodeJS Club</h3>
+      <label class="item-input item-select">
+        <div class="input-label" style="width:100%">
+          选择国家/地区
+        </div>
+        <select>
+          <option value='1' selected>中国大陆&nbsp;&nbsp;&nbsp;+86</option>
+          <!-- <option value='2'>中国台湾(+886)</option> -->
+          <!-- <option value='3'>中国香港(+852)</option> -->
+        </select>
+      </label>
+      <div class="item-input-inset">
+        <label class="item-input-wrapper">
+          <input id="phoneNumber" ng-model="data.phoneNumber" type="text" placeholder="手机号码">
+        </label>
+        <button ng-click="sendVerifyCode()" class="button button-royal button-small" ng-class="{'button-disabled':waitFor60Seconds}" ng-disabled="waitFor60Seconds">
+          {{submitTxt}}
+        </button>
+      </div>
+      <div class="item-input-inset">
+        <label class="item-input-wrapper" style="margin-right: 160px;">
+          <input id="verifyCode" ng-model="data.verifyCode" type="text" placeholder="输入四位验证码">
+        </label>
+      </div>
+      <div class="item item-text-wrap" style="border:none;" ng-click="openModal($event)">
+        点击「确定」按钮，代表你已阅读并同意 <span style="border-bottom:1px solid #000;">《软件许可及服务协议》</span>
+      </div>
+      <button class="button button-block button-royal" ng-click="bindPhoneNumber()">
+        确定
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
+<script id="modal-service-agreements.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar class="bar-royal">
+      <h1 class="title">用户协议</h1>
+      <button ng-click="closeModal()" class="button button-clear">关闭</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="card" ng-show="data.service_agreements==null">
+            <div class="item item-text-wrap">
+                加载中...
+            </div>
+        </div>
+        <div class="padding" ng-bind-html='data.service_agreements'>
+        </div>
+    </ion-content>
+  </ion-modal-view>
+</script>

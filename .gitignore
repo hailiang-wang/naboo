@@ -9,4 +9,5 @@ server/public/upload/
 client/config/development.json
 client/config/production.json
 client/app/scripts/templates.js
+client/www/js/configuration.js
 client/.temp

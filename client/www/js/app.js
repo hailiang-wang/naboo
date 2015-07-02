@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'naboc.services' is found in services.js
 // 'naboc.controllers' is found in controllers.js
-angular.module('naboc', ['ionic', 'naboc.controllers', 'naboc.services'])
+angular.module('naboc', ['ionic', 'naboc.controllers', 'naboc.services', 'config'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -75,7 +75,22 @@ angular.module('naboc', ['ionic', 'naboc.controllers', 'naboc.services'])
                 controller: 'AccountCtrl'
             }
         }
+    })
+
+    .state('bind-mobile-phone', {
+        cache: false,
+        url: '/bind-mobile-phone/:accessToken/:md5',
+        templateUrl: 'templates/bind-mobile-phone.html',
+        controller: 'BindMobilePhoneCtrl'
+    })
+
+    .state('bind-access-token', {
+        cache: false,
+        url: '/bind-access-token/:accessToken/:md5',
+        templateUrl: 'templates/bind-access-token.html',
+        controller: 'BindAccessTokenCtrl'
     });
+
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/activity');
