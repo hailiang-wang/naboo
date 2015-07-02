@@ -3,14 +3,14 @@
     <ion-content scroll="false">
         <div class="list card">
             <div class="item item-avatar">
-                <img src="img/dummy/avatar.jpeg">
-                <h2>Marty McFly</h2>
-                <p>Team Lead, MY_COMPANY</p>
+                <img src="{{data.profile.headimgurl}}">
+                <h2>{{data.name}}</h2>
+                <p>{{data.profile.province}}</p>
             </div>
             <div class="item item-body">
                 <!-- <img class="full-image" src="delorean.jpg"> -->
                 <p>
-                    labels: nodejs, angularjs, mongodb
+                    联系方式：{{data.phone_number}}
                 </p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
