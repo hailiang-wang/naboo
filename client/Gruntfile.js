@@ -1,4 +1,4 @@
-// Generated on 2015-04-11 using generator-ionic 0.7.1
+// Generated on 2015-07-02 using generator-ionic 0.7.1
 'use strict';
 
 var _ = require('lodash');
@@ -41,16 +41,18 @@ module.exports = function (grunt) {
       },
       development: {
         constants: {
-          // cfg: {
-          //   name: 'development',
-          //   apiEndpoint: 'http://localhost:3000'
-          // }
-          cfg: grunt.file.readJSON('config/development.json')
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://dev.yoursite.com:10000/'
+          }
         }
       },
       production: {
         constants: {
-          cfg: grunt.file.readJSON('config/production.json')
+          ENV: {
+            name: 'production',
+            apiEndpoint: 'http://api.yoursite.com/'
+          }
         }
       }
     },
@@ -63,15 +65,15 @@ module.exports = function (grunt) {
       },
       html: {
         files: ['<%= yeoman.app %>/**/*.html'],
-        tasks: ['newer:copy:app', 'html2js']
+        tasks: ['newer:copy:app']
       },
       js: {
         files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'],
         tasks: ['newer:copy:app', 'newer:jshint:all']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp']
+      styles: {
+        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'],
+        tasks: ['newer:copy:styles', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
         files: ['Gruntfile.js'],
@@ -84,7 +86,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0'
+        hostname: 'localhost'
       },
       dist: {
         options: {
@@ -152,43 +154,10 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
-      },
-      sass: {
-        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}lib\//
       }
     },
 
-
-    // Compiles Sass to CSS and generates necessary files if requested
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/<%= yeoman.styles %>',
-        cssDir: '.temp/<%= yeoman.styles %>',
-        generatedImagesDir: '.temp/<%= yeoman.images %>/generated',
-        imagesDir: '<%= yeoman.app %>/<%= yeoman.images %>',
-        javascriptsDir: '<%= yeoman.app %>/<%= yeoman.scripts %>',
-        fontsDir: '<%= yeoman.app %>/<%= yeoman.styles %>/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        httpImagesPath: '/<%= yeoman.images %>',
-        httpGeneratedImagesPath: '/<%= yeoman.images %>/generated',
-        httpFontsPath: '/<%= yeoman.styles %>/fonts',
-        relativeAssets: false,
-        assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n'
-      },
-      dist: {
-        options: {
-          generatedImagesDir: '<%= yeoman.dist %>/<%= yeoman.images %>/generated'
-        }
-      },
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
-    },
-
+    
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -254,7 +223,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.images %>/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '*.html',
-            //'templates/**/*.html',
+            'templates/**/*.html',
             'fonts/*'
           ]
         }, {
@@ -289,7 +258,6 @@ module.exports = function (grunt) {
         src: [
           '**/*',
           '!**/*.(scss,sass,css)',
-          '!templates/**/*.html',
         ]
       },
       tmp: {
@@ -308,19 +276,16 @@ module.exports = function (grunt) {
         }
       },
       server: [
-        'compass:server',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
       ],
       test: [
-        'compass',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
       ],
       dist: [
-        'compass:dist',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
@@ -396,18 +361,6 @@ module.exports = function (grunt) {
         browsers: ['PhantomJS'],
         singleRun: true,
       }
-    },
-
-    html2js: {
-      options: {
-        base: '<%= yeoman.app %>',
-        watch: true,
-        module: 'iwildfire.templates'
-      },
-      main: {
-        src: ['<%= yeoman.app %>/templates/**/*.html'],
-        dest: '<%= yeoman.app %>/scripts/templates.js'
-      },
     },
 
     // ngAnnotate tries to make the code safe for minification automatically by
@@ -519,7 +472,7 @@ module.exports = function (grunt) {
     }
 
     grunt.config('concurrent.ionic.tasks', ['ionic:serve', 'watch']);
-    grunt.task.run(['wiredep', 'html2js', 'init', 'concurrent:ionic']);
+    grunt.task.run(['wiredep', 'init', 'concurrent:ionic']);
   });
   grunt.registerTask('emulate', function() {
     grunt.config('concurrent.ionic.tasks', ['ionic:emulate:' + this.args.join(), 'watch']);
@@ -560,7 +513,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('coverage',
+  grunt.registerTask('coverage', 
     ['karma:continuous',
     'connect:coverage:keepalive'
   ]);

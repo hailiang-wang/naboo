@@ -20,7 +20,7 @@ var Orchestrator = require('orchestrator');
 
 var BASES = {
   android: 'res',
-  ios: 'Wildfire/Resources'
+  ios: 'Naboc/Resources'
 };
 var RESOURCE_DIR = 'resources';
 

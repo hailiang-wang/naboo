@@ -1,6 +1,0 @@
-{
-  "mode": "production",
-  "server": "http://naboo.arrking.com",
-  "api": "http://naboo.arrking.com/api/v1",
-  "debug": false
-}

@@ -1,8 +1,4 @@
 {
-  "name": "ionic",
-  "app_id": "",
-  "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
-  ]
+  "name": "client",
+  "app_id": ""
 }
