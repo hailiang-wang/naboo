@@ -71,7 +71,7 @@ var TopicSchema = new Schema({
    * 活动状态
    * @type [未开始，进行中，已结束，取消]
    */
-  act_status: {type: String, default: '未开始',  required: true}
+  act_status: {type: String, default: '未开始'}
 });
 
 TopicSchema.index({create_at: -1});

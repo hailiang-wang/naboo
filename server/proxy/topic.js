@@ -268,30 +268,39 @@ exports.reduceCount = function(id, callback) {
     });
 };
 
-exports.newAndSave = function(title, content, tab, authorId,
-    goods_pics,
-    goods_pre_price,
-    goods_now_price,
-    goods_is_bargain,
-    goods_quality_degree,
-    goods_exchange_location,
-    goods_exchange_geom,
-    goods_status,
-    callback)
-{
+exports.newAndSave = function(payload, callback) {
     var topic = new Topic();
-    topic.title = title;
-    topic.content = content;
-    topic.tab = tab;
-    topic.author_id = authorId;
+    topic.title = payload.title;
+    topic.content = payload.content;
+    topic.tab = payload.tab;
+    topic.author_id = payload.authorId;
+    topic.act_pics = payload.act_pics;
+    topic.act_location = payload.act_location;
+    topic.act_location_geom = payload.act_location_geom;
+    topic.act_status = payload.act_status;
     // save goods infomation
-    topic.goods_pics = goods_pics;
-    topic.goods_pre_price = goods_pre_price;
-    topic.goods_now_price = goods_now_price;
-    topic.goods_is_bargain = goods_is_bargain;
-    topic.goods_quality_degree = goods_quality_degree;
-    topic.goods_exchange_location = goods_exchange_location;
-    topic.goods_exchange_geom = goods_exchange_geom;
-    topic.goods_status = goods_status;
     topic.save(callback);
 };
+
+
+// exports.newAndSave = function(title,
+//     content,
+//     tab,
+//     authorId,
+//     act_pics,
+//     act_location,
+//     act_location_geom,
+//     act_status,
+//     callback) {
+//     var topic = new Topic();
+//     topic.title = title;
+//     topic.content = content;
+//     topic.tab = tab;
+//     topic.author_id = authorId;
+//     topic.act_pics = act_pics;
+//     topic.act_location = act_location;
+//     topic.act_location_geom = act_location_geom;
+//     topic.act_status = act_status;
+//     // save goods infomation
+//     topic.save(callback);
+// };
