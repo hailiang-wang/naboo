@@ -1,7 +1,7 @@
 <ion-view hide-nav-bar="true">
-    <ion-content>
+    <ion-content class="padding">
         <div class="card" ng-show="data == null">
-            <div class="item item-text-wrap">
+            <div class="item">
                 加载中...
             </div>
         </div>
@@ -12,14 +12,15 @@
             <div class="item">
                 报名人数：{{x.collect_count}}
             </div>
-            <div class="item item-text-wrap">
-                {{x.content}}
-            </div>
+            <!-- <a class="item item-icon-left" href="#">
+    <i class="icon ion-ios-plus-outline"></i> 我要报名
+</a>
+<a class="item item-icon-left" href="#">
+    <i class="icon ion-ios-minus-outline"></i> 取消报名
+</a>
+ -->
             <a class="item item-icon-left" href="#">
-                <i class="icon ion-ios-plus-outline"></i> 我要报名
-            </a>
-            <a class="item item-icon-left" href="#">
-                <i class="icon ion-ios-minus-outline"></i> 取消报名
+                <i class="icon ion-arrow-expand"></i> 查看详情
             </a>
         </div>
     </ion-content>
