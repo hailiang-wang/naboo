@@ -1,9 +1,29 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+<ion-view hide-nav-bar="true">
+    <!-- class="has-header" -->
+    <ion-content scroll="false">
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="img/dummy/avatar.jpeg">
+                <h2>Marty McFly</h2>
+                <p>Team Lead, MY_COMPANY</p>
+            </div>
+            <div class="item item-body">
+                <!-- <img class="full-image" src="delorean.jpg"> -->
+                <p>
+                    labels: nodejs, angularjs, mongodb
+                </p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-ios-pulse"></i> 活动
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-chatboxes"></i> 评论
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-share"></i> 分享
+                </a>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
