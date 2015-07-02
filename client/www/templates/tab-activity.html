@@ -5,7 +5,7 @@
                 加载中...
             </div>
         </div>
-        <div class="list" ng-show="data !== null" collection-repeat="x in data">
+        <div class="list list-inset" collection-repeat="x in data">
             <div class="item item-divider">
                 {{x.title}}
             </div>
@@ -19,8 +19,10 @@
     <i class="icon ion-ios-minus-outline"></i> 取消报名
 </a>
  -->
+            <button class="button button-clear button-positive">
+                查看详情
+            </button>
             <a class="item item-icon-left" href="#">
-                <i class="icon ion-arrow-expand"></i> 查看详情
             </a>
         </div>
     </ion-content>
