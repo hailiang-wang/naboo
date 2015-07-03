@@ -1,8 +1,14 @@
 angular.module('naboc.controllers', [])
 
-.controller('ActivityCtrl', function($scope, $timeout, Msg, webq) {
+.controller('ActivityCtrl', function($ionicModal, $scope, $timeout, Msg, webq) {
 
     $scope.data = null;
+    $ionicModal.fromTemplateUrl('modal-activity-detail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
 
     webq.getAllTopics()
         .then(function(result) {
@@ -14,6 +20,18 @@ angular.module('naboc.controllers', [])
                 Msg.hide();
             }, 2000);
         });
+
+    $scope.openModal = function(title, detail) {
+        $scope.data.activity_detail = detail;
+        $scope.data.activity_title = title;
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+        $scope.data.activity_detail = null;
+        $scope.data.activity_title = null;
+    };
 
 })
 

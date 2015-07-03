@@ -9,19 +9,44 @@
             <div class="item item-divider">
                 {{x.title}}
             </div>
-            <div class="item">
-                报名人数：{{x.collect_count}}
+            <div class="item item-image" style="background:#56c0e0">
+                <h1> {{x.collect_count}} </h1>
+                <h2> 人参加 </h2>
             </div>
-            <!-- <a class="item item-icon-left" href="#">
-    <i class="icon ion-ios-plus-outline"></i> 我要报名
-</a>
-<a class="item item-icon-left" href="#">
-    <i class="icon ion-ios-minus-outline"></i> 取消报名
-</a>
- -->
-            <button class="button button-clear button-positive">
-                查看详情
-            </button>
+            <a class="item item-icon-left" href="#" ng-show="x.isCollected == false">
+                <i class="icon ion-ios-plus-outline"></i> 我要报名
+            </a>
+            <a class="item item-icon-left" href="#" ng-show="x.isCollected == true">
+                <i class="icon ion-ios-minus-outline"></i> 取消报名
+            </a>
+            <a class="item item-icon-left" ng-click="openModal(x.title, x.content)">
+                <i class="icon ion-calendar"></i> 查看详情
+            </a>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-chatbox"></i> 评论
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-share"></i> 分享
+                </a>
+            </div>
         </div>
     </ion-content>
 </ion-view>
+<script id="modal-activity-detail.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-balanced">
+            <h1 class="title">{{data.activity_title}}</h1>
+            <button ng-click="closeModal()" class="button button-clear">关闭</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="card" ng-show="data.activity_detail==null">
+                <div class="item item-text-wrap">
+                    加载中...
+                </div>
+            </div>
+            <div ng-bind-html='data.activity_detail'>
+            </div>
+        </ion-content>
+    </ion-modal-view>
+</script>
